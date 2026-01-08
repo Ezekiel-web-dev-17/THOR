@@ -1,8 +1,15 @@
 "use client";
-
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import React from "react";
 
 export default function Error({ error, reset }) {
+
+  const router = useRouter()
+
+  useEffect(() => {
+    console.error(error)
+  }, [error])
 
   if (error?.message.includes('401')) {
     return <div>You are not authorized to see this</div>;
@@ -22,7 +29,14 @@ export default function Error({ error, reset }) {
 
         <p className="mt-2 text-sm text-muted-foreground">{error?.message ?? "Unexpected error"}</p>
 
-        <div className="mt-4">
+        <div className="mt-4 flex flex-col sm:flex-row items-center gap-2">
+          <button
+            onClick={() => router.push('/')}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          >
+            Back to Home
+          </button>
+
           <button onClick={() => reset?.()} className="px-4 py-2 bg-primary text-primary-foreground rounded hover:opacity-90 transition-opacity">
             Try again
           </button>

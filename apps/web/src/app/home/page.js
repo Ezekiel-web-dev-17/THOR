@@ -1,7 +1,10 @@
+"use client"
+
 import Link from "next/link";
 import Image from "next/image";
 import Button from "@/components/Button";
 import { FaGithub } from "react-icons/fa";
+import { signIn } from "next-auth/react";
 
 export default function Home() {
 
@@ -44,6 +47,7 @@ export default function Home() {
                   <Button 
                     variant="primary" 
                     className="rounded-full py-4 px-8 text-sm cursor-pointer"
+                    onClick={() => signIn('github')}
                   >
                     <FaGithub size={20} />
                     Sign in with GitHub

@@ -7,12 +7,21 @@ const handler = NextAuth({
 
     providers: [
         GitHub({
-        clientId: process.env.GITHUB_ID,
-        clientSecret: process.env.GITHUB_SECRET,
+            clientId: process.env.GITHUB_ID,
+            clientSecret: process.env.GITHUB_SECRET,
         }),
     ],
 
+    pages: {
+        signIn: '/home',
+    },
+
     callbacks: {
+        async redirect({ baseUrl }) {
+            return `${baseUrl}/getting-started`
+        },
+
+
         async session({ session, token }) {
             if (session?.user) {
                 session.user.id = token.sub || token.id
