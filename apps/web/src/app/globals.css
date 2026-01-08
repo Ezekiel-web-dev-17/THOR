@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Card */
+  --card: oklch(1 0 0);                     /* white */
+  --card-foreground: oklch(0.145 0.007 285);
+
+  /* Primary */
+  --primary: oklch(0.485 0.105 185);        /* teal */
+  --primary-foreground: oklch(1 0 0);       /* white */
+
+  /* Muted */
+  --muted: oklch(0.95 0.002 285);           /* grey */
+  --muted-foreground: oklch(0.485 0.012 275);
+
+  /* Destructive */
+  --destructive: oklch(0.605 0.235 25);     /* danger red */
+  --destructive-foreground: oklch(1 0 0);
+
+  /* Border & Input */
+  --border: oklch(0.9 0.002 285);
+  --input: oklch(0.9 0.002 285);
+  --ring: oklch(0.485 0.105 185);
+
+  /* Accent */
+  --accent: oklch(0.95 0.025 155);          /* green accent */
+  --accent-foreground: oklch(0.485 0.105 185);
+}
+
+@theme inline {
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+
+  --color-input: var(--input);
+
+  --color-ring: var(--ring);
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+

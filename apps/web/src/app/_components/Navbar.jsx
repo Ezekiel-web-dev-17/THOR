@@ -1,0 +1,111 @@
+'use client';
+
+import Link from 'next/link';
+import { useState } from 'react';
+import { FiMenu, FiX } from 'react-icons/fi';
+import { FaGithub } from 'react-icons/fa';
+import Avatar from './Avatar';
+
+
+export default function Navbar() {
+
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    const penLinks = [
+        { label: 'Docs', href: '/getting-started' },
+        { label: 'Blog', href: '/blog' },
+        { label: 'Showcase', href: '/showcase' },
+        { label: 'Community', href: '/community' },
+    ];
+
+    // Mock user - change this to test different scenarios
+    const user = true; // Not logged in
+    // const user = {
+    //     name: 'John Doe',
+    //     image: 'https://avatars.githubusercontent.com/u/12345678?v=4', // GitHub profile pic
+    // };
+    // const user = {
+    //     name: 'Guest User',
+    //     image: null, // No image = default avatar
+    // };
+
+    return (
+        <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
+            <div className="container mx-auto px-4">
+                <div className='flex h-16 items-center justify-between'>
+
+                    <Link href="/" className="text-xl font-bold text-foreground">
+                        YourLogo
+                    </Link>
+
+                    <div className="hidden md:flex items-center gap-6 ms-auto">
+                        {navLinks.map((link) => (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
+                        
+                        {/* GitHub Repo Link */}
+                        <Link
+                            href="https://github.com/yourusername/yourrepo"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                            <FaGithub size={20} />
+                        </Link>
+
+
+                        {/* Profile Circle */}
+                        <Avatar user={user} size={36} />
+
+                    </div>
+
+                    <button
+                        className="md:hidden text-foreground"
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    >
+                        {mobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+                    </button>
+                </div>
+
+                {mobileMenuOpen && (
+                    <div className="md:hidden py-4 border-t border-border">
+                        <div className="flex flex-col gap-4">
+                            {navLinks.map((link) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    {link.label}
+                                </Link>
+                            ))}
+                        </div>
+
+
+                        <div className="flex items-center gap-3 pt-2 border-t border-border">
+                            <Link
+                                    href="https://github.com/yourusername/yourrepo"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-muted-foreground hover:text-foreground transition-colors"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    <FaGithub size={20} />
+                            </Link>
+
+                            <Avatar user={user} size={36} />
+                        </div>
+
+                    </div>
+                )}
+            </div>
+        </nav>
+    )
+}
