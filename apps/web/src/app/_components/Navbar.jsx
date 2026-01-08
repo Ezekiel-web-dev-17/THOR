@@ -11,7 +11,7 @@ export default function Navbar() {
 
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    const penLinks = [
+    const navLinks = [
         { label: 'Docs', href: '/getting-started' },
         { label: 'Blog', href: '/blog' },
         { label: 'Showcase', href: '/showcase' },
