@@ -3,8 +3,6 @@ import path from "path";
 
 const CONTENT_PATH = path.join(
     process.cwd(), 
-    "apps",
-    "web",
     "src",
     "app",
     "(docs)",

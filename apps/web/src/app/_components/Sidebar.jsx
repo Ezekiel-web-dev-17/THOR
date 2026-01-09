@@ -48,6 +48,15 @@ const Sidebar = ({ tree }) => {
     return null;
   }
 
+  if (!tree || tree.length === 0) {
+    return (
+      <aside className="w-56 bg-muted border-r border-border overflow-y-auto py-6 px-4">
+        <div className="text-red-500">No tree data available</div>
+        <div className="text-sm text-gray-500">Check your getDocsTree function</div>
+      </aside>
+    );
+  }
+
   return (
     <aside className="w-56 bg-muted border-r border-border overflow-y-auto py-6 px-4">
       <nav>
