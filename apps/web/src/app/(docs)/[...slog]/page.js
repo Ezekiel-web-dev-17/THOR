@@ -3,7 +3,15 @@ import path from "path";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { notFound } from "next/navigation";
 
-const CONTENT_PATH = path.join(process.cwd(), 'content');
+const CONTENT_PATH = path.join(
+  process.cwd(),
+  "apps",
+  "web",
+  "src",
+  "app",
+  "(docs)",
+  "content"
+);
 
 export default async function DocPage({ params }) {
 

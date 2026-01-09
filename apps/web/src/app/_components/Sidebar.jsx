@@ -2,14 +2,10 @@
 import Link from 'next/link'
 import React from 'react'
 import { usePathname } from 'next/navigation';
-// import { navigationItems } from '@/lib/navigation';
-import { getDocsTree } from "@/lib/docs";
-
-const Sidebar = () => {
+const Sidebar = ({tree}) => {
 
   const pathname = usePathname();
 
-  const tree = getDocsTree();
 
   // Recursive component to render tree
   const TreeItem = ({ item, pathname, level = 0 }) => {
@@ -49,14 +45,14 @@ const Sidebar = () => {
               return (
                 <Link
                   key={child.name}
-                  href={`/docs/${item.name}/${child.name}`}
+                  href={`/docs/${child.route}`}
                   className={`block px-3 py-2 rounded transition-colors ${
                     isActive
                       ? 'border-l-primary text-foreground font-semibold'
                       : 'border-l-transparent text-muted-foreground hover:text-foreground'
                   }`}
                 >
-                  {child.label}
+                  {child.name}
                 </Link>
               )
             })}

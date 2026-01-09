@@ -1,7 +1,15 @@
 import fs from "fs";
 import path from "path";
 
-const CONTENT_PATH = path.join(process.cwd(), "content");
+const CONTENT_PATH = path.join(
+    process.cwd(), 
+    "apps",
+    "web",
+    "src",
+    "app",
+    "(docs)",
+    "content"
+);
 
 export function getDocsTree() {
 
