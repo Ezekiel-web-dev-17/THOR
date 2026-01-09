@@ -16,11 +16,18 @@ export function getDocsTree() {
   // Check if content directory exists
   if (!fs.existsSync(CONTENT_PATH)) {
     console.warn("Content directory not found:", CONTENT_PATH);
+    
+    const parentDir = path.dirname(CONTENT_PATH);
+    if (fs.existsSync(parentDir)) {
+      console.log("Parent directory contents:", fs.readdirSync(parentDir));
+    }
     return [];
   }
   function walk(dir) {
 
-    return fs.readdirSync(dir).map((file) => {
+    const files = fs.readdirSync(dir);
+
+    return files.map((file) => {
       const fullPath = path.join(dir, file);
       const stat = fs.statSync(fullPath);
 

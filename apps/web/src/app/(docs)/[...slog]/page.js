@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { notFound } from "next/navigation";
+
 
 const CONTENT_PATH = path.join(
   process.cwd(),

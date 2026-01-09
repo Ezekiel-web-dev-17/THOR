@@ -2,17 +2,15 @@
 import Link from 'next/link'
 import React from 'react'
 import { usePathname } from 'next/navigation';
-const Sidebar = ({tree}) => {
 
+const Sidebar = ({ tree }) => {
   const pathname = usePathname();
 
-
   // Recursive component to render tree
-  const TreeItem = ({ item, pathname, level = 0 }) => {
+  const TreeItem = ({ item, level = 0 }) => {
     if (item.type === 'folder') {
-      
       return (
-        <div key={item.name} className={`ml-${level * 4}`}>
+        <div key={item.name} style={{ marginLeft: `${level * 16}px` }}>
           <div className="text-xs font-medium text-muted-foreground uppercase tracking-widest mb-2 mt-6">
             {item.name}
           </div>
@@ -21,7 +19,6 @@ const Sidebar = ({tree}) => {
               <TreeItem 
                 key={child.name || child.path} 
                 item={child} 
-                pathname={pathname} 
                 level={level + 1}
               />
             ))}
@@ -29,34 +26,33 @@ const Sidebar = ({tree}) => {
         </div>
       );
     }
+    
+    if (item.type === 'file') {
+      const isActive = pathname === `/docs${item.route}`;
+      return (
+        <Link
+          key={item.name}
+          href={`/docs${item.route}`}
+          className={`block px-3 py-2 rounded transition-colors border-l-2 ${
+            isActive
+              ? 'border-l-primary text-foreground font-semibold'
+              : 'border-l-transparent text-muted-foreground hover:text-foreground'
+          }`}
+          style={{ marginLeft: `${level * 16}px` }}
+        >
+          {item.name}
+        </Link>
+      );
+    }
+    
+    return null;
   }
 
   return (
-    
     <aside className="w-56 bg-muted border-r border-border overflow-y-auto py-6 px-4">
       <nav>
         {tree.map((item) => (
-          <div key={item.name}>
-            <div className="text-xs font-medium text-muted-foreground uppercase tracking-widest mb-2 mt-6">
-              {item.name}
-            </div>
-            {item.children.map((child) => {
-              // const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={child.name}
-                  href={`/docs/${child.route}`}
-                  className={`block px-3 py-2 rounded transition-colors ${
-                    isActive
-                      ? 'border-l-primary text-foreground font-semibold'
-                      : 'border-l-transparent text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {child.name}
-                </Link>
-              )
-            })}
-          </div>
+          <TreeItem key={item.name} item={item} level={0} />
         ))}
       </nav>
     </aside>

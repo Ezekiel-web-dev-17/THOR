@@ -4,9 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import Button from "@/components/Button";
 import { FaGithub } from "react-icons/fa";
-import { signIn } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Home() {
+
+   const { data: session } = useSession();
+
 
   return (
     <>
@@ -57,6 +60,9 @@ export default function Home() {
                     <Button 
                       variant="other" 
                       className="rounded-full px-8 py-4 text-sm cursor-pointer"
+                      onClick={() => {
+                        session ? signOut() : null;
+                      }}
                     >
                       Continue as Guest
                     </Button>
