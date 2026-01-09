@@ -25,7 +25,7 @@ export function getDocsTree() {
 
     const files = fs.readdirSync(dir);
 
-    return files.map((file) => {
+    const items = files.map((file) => {
       const fullPath = path.join(dir, file);
       const stat = fs.statSync(fullPath);
 
@@ -52,6 +52,13 @@ export function getDocsTree() {
       return null;
 
     }).filter(Boolean);
+
+    return items.sort((a, b) => {
+      if (a.type !== b.type) {
+        return a.type === "folder" ? -1 : 1;
+      }
+      return a.name.localeCompare(b.name);
+    });
   }
 
   return walk(CONTENT_PATH);
