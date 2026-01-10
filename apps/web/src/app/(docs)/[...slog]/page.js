@@ -18,10 +18,6 @@ export default async function DocPage(props) {
     // Handle when params.slug is undefined (root route)
     const slugArray = params.slug || [];
 
-    if (slugArray.length === 0) {
-        redirect('/getting-started/introduction');
-    }
-
 
     // Build the file path from the slug array
     let filePath;
