@@ -12,7 +12,7 @@ export const metadata = {
 async function getContributors() {
   try {
     const response = await fetch(
-      'https://api.github.com/repos/yourusername/yourrepo/contributors',
+      'https://api.github.com/repos/MasterIfeanyi/THOR/contributors',
       {
         headers: { 'Accept': 'application/vnd.github.v3+json' },
         next: { revalidate: 3600 }
