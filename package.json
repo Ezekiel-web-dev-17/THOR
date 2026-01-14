@@ -22,6 +22,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.19",
     "next-mdx-remote": "^5.0.0"
   }
 }

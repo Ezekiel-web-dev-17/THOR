@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { redirect } from 'next/navigation';
+
 
 
 const CONTENT_PATH = path.join(
@@ -12,59 +12,107 @@ const CONTENT_PATH = path.join(
   "content"
 );
 
+
+// Helper function to find the first MDX file in a directory
+function findFirstMdxFile(dir) {
+  if (!fs.existsSync(dir)) return null;
+  
+  const files = fs.readdirSync(dir);
+  const mdxFile = files.find(file => file.endsWith('.mdx'));
+  
+  return mdxFile ? path.join(dir, mdxFile) : null;
+}
+
+
 export default async function DocPage(props) {
 
     const params = await props.params;
-    // Handle when params.slug is undefined (root route)
-    const slugArray = params.slug || [];
+    // Handle when params.slog is undefined (root route)
+    const slogArray = params.slog || [];
 
 
-    // Build the file path from the slug array
+    // Build the file path from the slog array
     let filePath;
 
-    if (slugArray.length === 0) {
-        // If at root, show index.mdx or default content
-        filePath = path.join(CONTENT_PATH, "index.mdx");
+    if (slogArray.length === 0) {
+
+      // If at root, try index.mdx first, then any MDX file in content root
+      const indexPath = path.join(CONTENT_PATH, "index.mdx");
+      if (fs.existsSync(indexPath)) {
+        filePath = indexPath;
+      } else {
+        filePath = findFirstMdxFile(CONTENT_PATH);
+      }
+
     } else {
-        // Join slug parts to create path
-        filePath = path.join(CONTENT_PATH, ...slugArray) + ".mdx";
+      // Try different file path strategies
+      const directFile = path.join(CONTENT_PATH, ...slogArray.slice(0, -1), `${slogArray[slogArray.length - 1]}.mdx`);
+      const folderPath = path.join(CONTENT_PATH, ...slogArray);
+      const indexFile = path.join(folderPath, "index.mdx");
+
+      if (fs.existsSync(directFile)) {
+        filePath = directFile;
+      } else if (fs.existsSync(indexFile)) {
+        filePath = indexFile;
+      } else if (fs.existsSync(folderPath) && fs.statSync(folderPath).isDirectory()) {
+        // If it's a directory, find the first MDX file in it
+        filePath = findFirstMdxFile(folderPath);
+      } else {
+        filePath = null;
+      }
+
     }
 
 
-    if (!fs.existsSync(filePath)) {
+    // Final fallback: if no file found, try to load /content/index.mdx
+    if (!filePath || !fs.existsSync(filePath)) {
+        const fallbackIndex = path.join(CONTENT_PATH, "index.mdx");
         
-        const dir = path.dirname(filePath);
+        if (fs.existsSync(fallbackIndex)) {
+          filePath = fallbackIndex;
+        } else {
+          // Last resort: find ANY mdx file in content root
+          filePath = findFirstMdxFile(CONTENT_PATH);
+        }
+    }
+
+
+
+    if (!filePath || !fs.existsSync(filePath)) {
+        
+        const dir = filePath ? path.dirname(filePath) : CONTENT_PATH;
+
         let availableFiles = [];
         
         if (fs.existsSync(CONTENT_PATH)) {
-            availableFiles = fs.readdirSync(CONTENT_PATH);
+          availableFiles = fs.readdirSync(CONTENT_PATH);
         }
 
         return (
-            <div className="p-8">
-                <h1 className="text-2xl font-bold mb-4">Document not found</h1>
-                    <p className="text-sm text-gray-600 mb-2">
-                    <strong>Looking for:</strong> {filePath}
+          <div className="p-8">
+            <h1 className="text-2xl font-bold mb-4">Document not found</h1>
+              <p className="text-sm text-gray-600 mb-2">
+              <strong>Looking for:</strong> {filePath}
+            </p>
+            <p className="text-sm text-gray-600 mb-2">
+              <strong>Content directory:</strong> {CONTENT_PATH}
+            </p>
+            <p className="text-sm text-gray-600 mb-2">
+              <strong>Content dir exists:</strong> {fs.existsSync(CONTENT_PATH) ? 'Yes' : 'No'}
+            </p>
+            {availableFiles.length > 0 && (
+              <>
+                <p className="text-sm font-semibold mt-4 mb-2">
+                    Available files/folders in content directory:
                 </p>
-                <p className="text-sm text-gray-600 mb-2">
-                    <strong>Content directory:</strong> {CONTENT_PATH}
-                </p>
-                <p className="text-sm text-gray-600 mb-2">
-                    <strong>Content dir exists:</strong> {fs.existsSync(CONTENT_PATH) ? 'Yes' : 'No'}
-                </p>
-                {availableFiles.length > 0 && (
-                    <>
-                        <p className="text-sm font-semibold mt-4 mb-2">
-                            Available files/folders in content directory:
-                        </p>
-                        <ul className="list-disc pl-6 text-sm">
-                            {availableFiles.map(file => (
-                                <li key={file}>{file}</li>
-                            ))}
-                        </ul>
-                    </>
-                )}
-            </div>
+                <ul className="list-disc pl-6 text-sm">
+                    {availableFiles.map(file => (
+                        <li key={file}>{file}</li>
+                    ))}
+                </ul>
+              </>
+            )}
+          </div>
         );
     }
 
@@ -88,12 +136,19 @@ export async function generateStaticParams() {
         // Recursively get files from subdirectories
         paths = paths.concat(getFiles(fullPath, [...basePath, file]));
       } else if (file.endsWith('.mdx')) {
-        // Remove .mdx extension and create slug array
+        // Remove .mdx extension and create slog array
         const fileName = file.replace('.mdx', '');
-        paths.push({
-          slug: [...basePath, fileName]
-        });
+
+        if (fileName === 'index') {
+          if (basePath.length > 0) {
+            paths.push({ slog: basePath });
+          }
+        } else {
+          paths.push({ slog: [...basePath, fileName] });
+        }
+
       }
+
     });
 
     return paths;
@@ -106,11 +161,11 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props) {
   const params = await props.params;
-  const slugArray = params.slug || [];
+  const slogArray = params.slog || [];
   
   return {
-    title: slugArray.length > 0 
-      ? slugArray[slugArray.length - 1].replace(/-/g, ' ')
+    title: slogArray.length > 0 
+      ? slogArray[slogArray.length - 1].replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
       : 'Documentation'
   };
 }
