@@ -133,7 +133,7 @@ body::-webkit-scrollbar {
 }
 
 :not(html):not(body)::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  background: linear-gradient(135deg, oklch(0.485 0.105 185), oklch(0.45 0.11 185));
   border-radius: 6px;
   border: 2px solid transparent;
   background-clip: content-box;
@@ -142,19 +142,19 @@ body::-webkit-scrollbar {
 /* 2. Target Firefox scrollbars for everything EXCEPT the root */
 :not(html):not(body) {
   scrollbar-width: thin;
-  scrollbar-color: #3b82f6 rgba(0, 0, 0, 0.05);
+  scrollbar-color: oklch(0.485 0.105 185) rgba(0, 0, 0, 0.05);
 }
 
 /* For Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #3b82f6 rgba(0, 0, 0, 0.05);
+  scrollbar-color: oklch(0.485 0.105 185) rgba(0, 0, 0, 0.05);
 }
 
 /* For specific containers (optional) */
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #3b82f6 rgba(0, 0, 0, 0.05);
+  scrollbar-color: oklch(0.485 0.105 185) rgba(0, 0, 0, 0.05);
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -168,7 +168,7 @@ body::-webkit-scrollbar {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #3b82f6;
+  background: oklch(0.485 0.105 185);
   border-radius: 4px;
   border: 2px solid transparent;
   background-clip: content-box;
