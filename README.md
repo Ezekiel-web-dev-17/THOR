@@ -7,12 +7,11 @@
 - Node.js 18+ installed
 - A free MongoDB Atlas account ([Sign up here](https://www.mongodb.com/cloud/atlas))
 
-
 1. **Clone the repository:**
 
 ```bash
-   git clone https://github.com/yourusername/your-repo.git
-   cd your-repo
+   git clone https://github.com/MasterIfeanyi/THOR.git
+   cd THOR
 ```
 
 2. **Install dependencies: everything at once (frontend + backend + database)**
@@ -26,7 +25,8 @@
 ```bash
    cp .env.example .env
 ```
-   Then edit `.env` and add your MongoDB connection string.
+
+Then edit `.env` and add your MongoDB connection string.
 
 4. **Set up your database:**
 
@@ -54,8 +54,7 @@
 
 8. **Open your browser:**
 
-  ```http://localhost:3000```
-
+`http://localhost:3000`
 
 ## ⚠️ Important: Always Install from Root
 
