@@ -50,6 +50,7 @@ const TextArea = ({
                     : "border-border focus:border-primary focus:ring-primary"
                 }
                 focus:ring-2 focus:ring-offset-0
+                placeholder:text-muted-foreground
             `}
         />
         {error === "true" && errorMessage && (
