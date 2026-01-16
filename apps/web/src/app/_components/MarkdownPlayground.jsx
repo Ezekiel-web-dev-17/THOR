@@ -1,13 +1,12 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import Button from '@/components/Button';
 import TextArea from '@/components/TextArea';
-
+import { darkMarkdownComponents } from './mdx-components';
+import { FiCopy, FiCheck } from 'react-icons/fi';
 
 const defaultMarkdown = `# Welcome to the Markdown Playground! 🎨
 
@@ -66,6 +65,8 @@ export default function MarkdownPlayground() {
     });
 
     const [showPreview, setShowPreview] = useState(true);
+    const [copied, setCopied] = useState(false);
+
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -82,6 +83,12 @@ export default function MarkdownPlayground() {
     const handleClear = () => {
         setMarkdown('');
         localStorage.setItem('markdown-playground', '');
+    };
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(markdown);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
     };
 
     return (
@@ -127,10 +134,18 @@ export default function MarkdownPlayground() {
             <div className="max-w-7xl mx-auto p-4">
                 <div className={`grid gap-4 ${showPreview ? 'grid-cols-1 lg:grid-cols-2' : 'grid-cols-1'}`}>
                     <div className="flex flex-col">
-                        <div className="bg-gray-800 px-4 py-2 rounded-t-lg border-b border-gray-700">
+                        <div className="bg-gray-800 px-4 py-2 rounded-t-lg border-b border-gray-700 flex justify-between items-center">
                             <span className="text-sm font-medium text-gray-300">
                                 Editor
                             </span>
+                            <Button
+                                onClick={handleCopy}
+                                className="px-3 py-1.5 bg-gray-700 hover:bg-gray-600 rounded text-xs font-medium transition-colors flex items-center gap-1.5"
+                                title="Copy markdown"
+                            >
+                                {copied ? <FiCheck size={14} /> : <FiCopy size={14} />}
+                                {copied ? 'Copied!' : 'Copy'}
+                            </Button>
                         </div>
                         <TextArea
                             id="markdown-editor"
@@ -145,51 +160,28 @@ export default function MarkdownPlayground() {
 
 
 
-                {/* Preview */}
-                {showPreview && (
-                    <div className="flex flex-col">
-                    <div className="bg-gray-800 px-4 py-2 rounded-t-lg border-b border-gray-700">
-                        <span className="text-sm font-medium text-gray-300">
-                            Preview
-                        </span>
-                    </div>
-                    <div className="flex-1 min-h-150 bg-gray-850 p-6 rounded-b-lg overflow-auto">
-                        <div className="prose prose-invert prose-slate max-w-none">
-                        <ReactMarkdown
-                            remarkPlugins={[remarkGfm]}
-                            components={{
-                                code({ node, inline, className, children, ...props }) {
-                                    const match = /language-(\w+)/.exec(className || '');
-                                    return !inline && match ? (
-                                        <SyntaxHighlighter
-                                            style={vscDarkPlus}
-                                            language={match[1]}
-                                            PreTag="div"
-                                            {...props}
-                                        >
-                                            {String(children).replace(/\n$/, '')}
-                                        </SyntaxHighlighter>
-                                    ) : (
-                                        <code className="bg-gray-700 px-1.5 py-0.5 rounded text-sm" {...props}>
-                                            {children}
-                                        </code>
-                                    );
-                                },
-                                
-                            }}
-                        >
-                            {markdown}
-                        </ReactMarkdown>
+                    {/* Preview */}
+                    {showPreview && (
+                        <div className="flex flex-col">
+                            <div className="bg-gray-800 px-4 py-2 rounded-t-lg border-b border-gray-700 border">
+                                <span className="text-sm font-medium text-gray-300">
+                                    Preview
+                                </span>
+                            </div>
+                            <div className="flex-1 min-h-150 bg-gray-800 p-6 rounded-b-lg overflow-auto border border-t-0 border-gray-700">
+                                <div className="prose prose-invert prose-slate max-w-none">
+                                    <ReactMarkdown
+                                        remarkPlugins={[remarkGfm]}
+                                        components={darkMarkdownComponents}
+                                    >
+                                        {markdown}
+                                    </ReactMarkdown>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    </div>
-                )}
-
-
+                    )}
                 </div>
             </div>
-
-
 
 
             {/* Cheat Sheet */}
@@ -236,8 +228,6 @@ export default function MarkdownPlayground() {
                     </div>
                 </details>
             </div>
-
-
         </div>
     )
 }
