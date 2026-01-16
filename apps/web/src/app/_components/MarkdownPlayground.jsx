@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Button from '@/components/Button';
 import TextArea from '@/components/TextArea';
-import { darkMarkdownComponents } from './mdx-components';
+import { darkMarkdownComponents } from './MdxComponents';
 import { FiCopy, FiCheck } from 'react-icons/fi';
 import ProtectedRoute from './ProtectedRoute';
 
@@ -104,8 +104,8 @@ export default function MarkdownPlayground() {
                     <div className="max-w-7xl mx-auto px-4 py-4">
                         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                             <div>
-                                <h1 className="text-2xl font-bold">Markdown Playground</h1>
-                                <p className="text-sm text-gray-400 mt-1">
+                                <h1 className="text-2xl font-bold tracking-tight">Markdown Playground</h1>
+                                <p className="text-sm text-muted-foreground mt-1">
                                     Learn and practice markdown syntax in real-time
                                 </p>
                             </div>
