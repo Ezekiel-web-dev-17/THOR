@@ -2,7 +2,7 @@
 "use client";
 
 import { useSession, signIn } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Modal from "@/components/Modal";
 import Button from "@/components/Button";
 
@@ -14,7 +14,7 @@ export default function ProtectedRoute({ children }) {
 
 
   const handleSignIn = () => {
-    signIn("github");
+    signIn("github", { callbackUrl: pathname });
   };
 
   const handleClose = () => {

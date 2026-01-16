@@ -17,8 +17,13 @@ const handler = NextAuth({
     },
 
     callbacks: {
-        async redirect({ baseUrl }) {
-            return `${baseUrl}/getting-started`
+        async redirect({ url, baseUrl }) {
+            // If there's a callbackUrl, use it
+            if (url.startsWith("/")) return `${baseUrl}${url}`;
+            // If the url is from the same origin, use it
+            else if (new URL(url).origin === baseUrl) return url;
+            // Otherwise, return to getting-started as fallback
+            return `${baseUrl}/getting-started`;
         },
 
 
