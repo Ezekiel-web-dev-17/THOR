@@ -5,6 +5,8 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import Button from '@/components/Button';
+
 
 const defaultMarkdown = `# Welcome to the Markdown Playground! 🎨
 
@@ -94,24 +96,26 @@ export default function MarkdownPlayground() {
                             </p>
                         </div>
                         <div className="flex gap-2">
-                            <button
+                            <Button
                                 onClick={() => setShowPreview(!showPreview)}
-                                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-medium transition-colors"
+                                className="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                             >
                                 {showPreview ? 'Hide Preview' : 'Show Preview'}
-                            </button>
-                            <button
+                            </Button>
+                            <Button
+                                variant='secondary'
                                 onClick={handleReset}
-                                className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition-colors"
+                                className="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                             >
                                 Reset
-                            </button>
-                            <button
+                            </Button>
+                            <Button
+                                variant="danger"
                                 onClick={handleClear}
-                                className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium transition-colors"
+                                className="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                             >
                                 Clear
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </div>
