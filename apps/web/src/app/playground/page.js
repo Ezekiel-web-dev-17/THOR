@@ -1,4 +1,6 @@
-import MarkdownPlayground from './_components/MarkdownPlayground';
+import MarkdownPlayground from '@/app/_components/MarkdownPlayground';
+import NavbarLayout from '../_components/NavbarLayout';
+
 
 export const metadata = {
   title: "Markdown Playground | THOR",
@@ -6,5 +8,9 @@ export const metadata = {
 };
 
 export default function PlaygroundPage() {
-  return <MarkdownPlayground />;
+  return (
+    <NavbarLayout>
+        <MarkdownPlayground />
+    </NavbarLayout>
+  );
 }

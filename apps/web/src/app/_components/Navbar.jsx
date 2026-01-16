@@ -16,6 +16,7 @@ export default function Navbar() {
 
     const navLinks = [
         { label: 'Docs', href: '/getting-started' },
+        { label: 'Playgorund', href: '/playground' },
         { label: 'Community', href: '/community' },
     ];
 
