@@ -6,8 +6,9 @@ import remarkGfm from 'remark-gfm';
 import Button from '@/components/Button';
 import TextArea from '@/components/TextArea';
 import { darkMarkdownComponents } from './MdxComponents';
-import { FiCopy, FiCheck } from 'react-icons/fi';
+import { FiCopy, FiCheck, FiRotateCcw, FiTrash2 } from 'react-icons/fi';
 import ProtectedRoute from './ProtectedRoute';
+import useLocalStorage from "@/hooks/useLocalStorage"
 
 const defaultMarkdown = `# Welcome to the Markdown Playground! 🎨
 
@@ -60,12 +61,7 @@ console.log(greet("Developer"));
 
 export default function MarkdownPlayground() {
 
-    const [markdown, setMarkdown] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const saved = localStorage.getItem('markdown-playground');
-            return saved ? saved : defaultMarkdown;
-        }
-    });
+    const [markdown, setMarkdown] = useLocalStorage('markdown-playground', defaultMarkdown);
 
     const [showPreview, setShowPreview] = useState(true);
     const [copied, setCopied] = useState(false);
@@ -121,14 +117,14 @@ export default function MarkdownPlayground() {
                                     onClick={handleReset}
                                     className="px-4 py-2 rounded-lg text-sm font-medium transition-colors flex-1 sm:flex-none"
                                 >
-                                    Reset
+                                    <FiRotateCcw /> Reset
                                 </Button>
                                 <Button
                                     variant="danger"
                                     onClick={handleClear}
                                     className="px-4 py-2 rounded-lg text-sm font-medium transition-colors flex-1 sm:flex-none"
                                 >
-                                    Clear
+                                    <FiTrash2 /> Clear
                                 </Button>
                             </div>
                         </div>
@@ -168,7 +164,7 @@ export default function MarkdownPlayground() {
 
                         {/* Preview */}
                         {showPreview && (
-                            <div className="flex flex-col">
+                            <section className="flex flex-col h-[120vh]">
                                 <div className="bg-gray-800 px-4 py-2 rounded-t-lg border-b border-gray-700 border">
                                     <span className="text-sm font-medium text-gray-300">
                                         Preview
@@ -184,7 +180,7 @@ export default function MarkdownPlayground() {
                                         </ReactMarkdown>
                                     </div>
                                 </div>
-                            </div>
+                            </section>
                         )}
                     </div>
                 </div>
