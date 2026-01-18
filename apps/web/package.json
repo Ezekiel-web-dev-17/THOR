@@ -26,8 +26,5 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
     "tailwindcss": "^4"
-  },
-   "optionalDependencies": {
-    "@lightningcss/cli": "^1.28.2"
   }
 }
