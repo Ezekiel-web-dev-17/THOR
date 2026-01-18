@@ -41,7 +41,7 @@ export function getDocsTree() {
 
       if (file.endsWith(".mdx")) {
         const relativePath = path.relative(CONTENT_PATH, fullPath);
-        const route = `/${relativePath.replace(/\\/g, "/").replace(/\.mdx$/, "")}`;
+        const route = `/docs/${relativePath.replace(/\\/g, "/").replace(/\.mdx$/, "")}`;
         return {
           type: "file",
           name: file.replace(".mdx", ""),
