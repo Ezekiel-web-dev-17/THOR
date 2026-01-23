@@ -28,7 +28,7 @@
    Then edit `.env` and add your GitHub OAuth secrets and Next_auth secrets.
 
 
-1. **Start frontend**
+4. **Start frontend**
 
 ```bash
     npm run dev
