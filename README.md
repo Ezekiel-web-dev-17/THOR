@@ -31,12 +31,11 @@
 4. **Start frontend**
 
 ```bash
-    npm run dev
+   npm run dev
 ```
 
 
 5. **Open your browser:**
-
   ```http://localhost:3000```
 
 
