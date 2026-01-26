@@ -121,7 +121,7 @@ const CommentItem = ({ comment, depth = 0, onReplySubmit, currentUserId }) => {
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <div className="p-4 bg-black rounded-lg border shadow-sm transition-shadow border-border hover:shadow-md">
+          <div className="p-4 rounded-lg border shadow-sm transition-shadow bg-card border-border hover:shadow-md">
             {/* Header */}
             <div className="flex gap-2 items-center mb-2">
               <span className="font-semibold text-foreground">
@@ -366,7 +366,7 @@ const Comment = () => {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="px-3 py-1.5 border border-input rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring bg-background"
+            className="px-3 py-1.5 border border-input rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring bg-background hover:cursor-pointer hover:border-2 hover:border-primary"
           >
             <option value="recent">Most Recent</option>
             <option value="popular">Most Popular</option>
@@ -395,7 +395,7 @@ const Comment = () => {
             <textarea
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
-              className="px-4 py-3 w-full rounded-lg border resize-none border-input focus:outline-none focus:ring-2 focus:ring-ring bg-background"
+              className="px-4 py-3 w-full rounded-lg border resize-none border-input focus:outline-none focus:ring-2 focus:ring-ring bg-background placeholder:text-muted-foreground"
               rows="4"
               placeholder={
                 status === "authenticated"
@@ -412,12 +412,8 @@ const Comment = () => {
               </p>
               <button
                 type="submit"
-                disabled={
-                  !newComment.trim() ||
-                  status !== "authenticated" ||
-                  isSubmitting
-                }
-                className="px-6 py-2.5 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={status !== "authenticated" || isSubmitting}
+                className="px-6 py-2.5 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:cursor-pointer"
               >
                 {isSubmitting ? "Posting..." : "Post Comment"}
               </button>
