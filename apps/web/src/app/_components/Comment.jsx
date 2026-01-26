@@ -272,7 +272,6 @@ const Comment = () => {
           const data = await response.json();
           setComments(data.comments || []);
         } else {
-          console.error("No comments yet");
           setComments([]);
         }
       } catch (error) {
