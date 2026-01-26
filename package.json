@@ -15,14 +15,19 @@
     "packages/*"
   ],
   "devDependencies": {
-    "prisma": "^7.2.0"
+    "prisma": "^5.22.0"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@arcjet/inspect": "^1.0.0",
+    "@arcjet/next": "^1.0.0",
     "@tailwindcss/typography": "^0.5.19",
-    "next-mdx-remote": "^5.0.0"
+    "dompurify": "^3.3.1",
+    "isomorphic-dompurify": "^2.35.0",
+    "next-mdx-remote": "^5.0.0",
+    "npm": "^11.7.0"
   }
 }
