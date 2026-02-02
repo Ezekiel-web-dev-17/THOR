@@ -29,8 +29,9 @@ export default function ThemeProvider({ children }) {
   });
   const [mounted, setMounted] = useState(false);
 
-  // Set mounted state
+  // Set mounted state - intentional pattern to prevent hydration mismatch
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 

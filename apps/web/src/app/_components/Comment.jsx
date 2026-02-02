@@ -68,7 +68,7 @@ const CommentItem = ({ comment, depth = 0, onReplySubmit, currentUserId }) => {
         // Revert on error
         setIsLiked(previousLiked);
         setLikeCount(previousCount);
-        console.error("Failed to toggle like");
+        setError("Failed to toggle like");
       } else {
         // Use the already parsed response
         setLikeCount(res.likes);
@@ -78,7 +78,7 @@ const CommentItem = ({ comment, depth = 0, onReplySubmit, currentUserId }) => {
       // Revert on error
       setIsLiked(previousLiked);
       setLikeCount(previousCount);
-      console.error("Error toggling like:", error);
+      setError("Error toggling like:", error);
     } finally {
       setIsLiking(false);
     }
@@ -94,7 +94,7 @@ const CommentItem = ({ comment, depth = 0, onReplySubmit, currentUserId }) => {
       setReplyContent("");
       setShowReplyForm(false);
     } catch (error) {
-      console.error("Error submitting reply:", error);
+      setError("Error submitting reply:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -277,7 +277,7 @@ const Comment = () => {
           setComments([]);
         }
       } catch (error) {
-        console.error("Error fetching comments:", error);
+        setError("Error fetching comments:", error);
         setComments([]);
       } finally {
         setIsLoading(false);
@@ -292,7 +292,7 @@ const Comment = () => {
     if (!newComment.trim() || isSubmitting) return;
 
     if (status !== "authenticated") {
-      setError("Please sign in to comment");
+      alert("Please sign in to comment");
       return;
     }
 
@@ -313,11 +313,11 @@ const Comment = () => {
         setNewComment("");
       } else {
         const errorData = await response.json();
-        setError(errorData.error || "Failed to post comment");
+        alert(errorData.error || "Failed to post comment");
       }
     } catch (error) {
-      console.error("Error posting comment:", error);
-      setError("Failed to post comment");
+      setError("Error posting comment:", error);
+      alert("Failed to post comment");
     } finally {
       setIsSubmitting(false);
     }
@@ -325,7 +325,7 @@ const Comment = () => {
 
   const handleReplySubmit = async (content, parentId) => {
     if (status !== "authenticated") {
-      setError("Please sign in to reply");
+      alert("Please sign in to reply");
       throw new Error("Not authenticated");
     }
 
@@ -341,7 +341,7 @@ const Comment = () => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      setError(errorData.error || "Failed to post reply");
+      alert(errorData.error || "Failed to post reply");
       throw new Error("Failed to post reply");
     }
 
@@ -405,7 +405,7 @@ const Comment = () => {
               }
               disabled={status !== "authenticated" || isSubmitting}
               required={true}
-              error={error ? "true" : "false"}
+              error={error ? true : false}
               errorMessage={error}
             />
             <div className="flex justify-between items-center mt-3">

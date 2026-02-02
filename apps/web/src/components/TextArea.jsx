@@ -14,6 +14,7 @@ const TextArea = ({
   error = "false",
   errorMessage,
   rows = 4,
+  className = "",
   onBlur,
 }) => {
   return (
@@ -35,7 +36,7 @@ const TextArea = ({
         rows={rows}
         className={`
                 w-full px-3 py-2 mt-2 
-                bg-white border rounded-md 
+                ${className} border rounded-md 
                 font-light text-sm
                 outline-none transition
                 disabled:opacity-70 disabled:cursor-not-allowed
