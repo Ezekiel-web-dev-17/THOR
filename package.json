@@ -8,14 +8,16 @@
     "db:setup": "npm run db:generate --workspace=@repo/database && npm run db:push --workspace=@repo/database",
     "db:seed": "npm run db:seed --workspace=@repo/database",
     "dev": "npm run dev --workspace=@repo/web",
-    "dev:api": "npm run dev --workspace=@repo/api"
+    "dev:api": "npm run dev --workspace=@repo/api",
+    "generate": "npm run prisma:generate --workspaces",
+    "postinstall": "npm run generate"
   },
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "devDependencies": {
-    "prisma": "^7.2.0",
+    "prisma": "5.22.0",
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",

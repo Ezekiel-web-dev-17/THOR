@@ -38,7 +38,7 @@ export const authOptions = {
         },
 
         async signIn({ profile }) {
-            if (!profile?.email) return false
+            // if (!profile?.email) return false
             return true
         },
     }
