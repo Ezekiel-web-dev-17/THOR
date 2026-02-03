@@ -1,8 +1,10 @@
 import NextAuth from "next-auth"
 import GitHub from "next-auth/providers/github"
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import prisma from "@/lib/prisma"
 
-const handler = NextAuth({
-
+export const authOptions = {
+    adapter: PrismaAdapter(prisma),
     secret: process.env.NEXTAUTH_SECRET,
 
     providers: [
@@ -18,7 +20,7 @@ const handler = NextAuth({
 
     callbacks: {
 
-        async redirect({url, baseUrl}) {
+        async redirect({ url, baseUrl }) {
             // If the url is from the same origin, use it
             if (url.startsWith("/")) {
                 return url
@@ -27,10 +29,10 @@ const handler = NextAuth({
             }
         },
 
-        async session({ session, token }) {
+        async session({ session, token, user }) {
             if (session?.user) {
-                session.user.id = token.sub || token.id
-                session.user.username = token.username
+                session.user.id = user?.id || token?.sub || token?.id
+                session.user.role = user?.role || "User"
             }
             return session
         },
@@ -40,6 +42,9 @@ const handler = NextAuth({
             return true
         },
     }
-})
+}
+
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }
+
