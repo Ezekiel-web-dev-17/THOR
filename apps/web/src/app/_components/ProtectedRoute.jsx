@@ -25,7 +25,7 @@ export default function ProtectedRoute({ children }) {
 
   if (status === "loading") {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen">
         <p>Loading...</p>
       </div>
     );
@@ -36,19 +36,19 @@ export default function ProtectedRoute({ children }) {
       {children}
 
       <Modal isShown={showModal} onClose={handleClose}>
-        <div className="flex justify-center items-center p-4 min-h-screen">
-          <div className="p-8 w-full max-w-md text-center bg-white rounded-lg shadow-xl dark:bg-gray-900">
+        <div className="flex items-center justify-center min-h-screen p-4">
+          <div className="w-full max-w-md p-8 text-center bg-white rounded-lg shadow-xl dark:bg-gray-800">
             <div className="flex justify-center mb-6">
-              <div className="flex justify-center items-center w-24 h-24 bg-teal-700 rounded-full">
+              <div className="flex items-center justify-center w-24 h-24 bg-teal-700 rounded-full">
                 <FaLock size={48} className="text-white" />
               </div>
             </div>
 
-            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-gray-100">
+            <h2 className="mb-4 text-2xl font-bold">
               Authentication Required
             </h2>
 
-            <p className="mb-6 text-gray-600 dark:text-gray-400">
+            <p className="mb-6 text-gray-500">
               Please sign in with GitHub to use this feature.
             </p>
 
@@ -57,7 +57,7 @@ export default function ProtectedRoute({ children }) {
               size="large"
               variant="primary"
               className="px-8 py-4 text-sm rounded-full cursor-pointer dark:text-gray-100"
-              // className="px-4 py-3 w-full font-medium text-white bg-gray-900 rounded-lg transition-colors hover:bg-gray-800"
+              // className="w-full px-4 py-3 font-medium text-white transition-colors bg-gray-900 rounded-lg hover:bg-gray-800"
             >
               <FaGithub size={20} />
               Sign in with GitHub

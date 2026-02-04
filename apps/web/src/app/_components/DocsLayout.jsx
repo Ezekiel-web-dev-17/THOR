@@ -14,7 +14,6 @@ const DocsLayout = ({ children, tree }) => {
     setSidebarVisible(!sidebarVisible);
   };
 
-const DocsLayout = ({ children, tree }) => {
   return (
     <>
       <NavbarLayout />
@@ -22,13 +21,13 @@ const DocsLayout = ({ children, tree }) => {
         {/* Sidebar with conditional rendering */}
         {sidebarVisible && <Sidebar tree={tree} className="col-resize" />}
 
-        <main className="overflow-y-auto relative flex-1 px-12 py-8">
+        <main className="relative flex-1 px-12 py-8 overflow-y-auto">
           {/* Sidebar Toggle Button */}
           <Button
             onClick={toggleSidebar}
             variant="other"
             size="small"
-            className="fixed top-0 left-4 z-50 rounded-xl border-2 border-gray-300 shadow-md cursor-pointer hover:text-black"
+            className="fixed top-0 z-50 border-2 border-gray-300 shadow-md cursor-pointer left-4 rounded-xl hover:text-black"
             icon={
               sidebarVisible ? (
                 <PanelLeftClose size={18} />
@@ -48,5 +47,4 @@ const DocsLayout = ({ children, tree }) => {
     </>
   );
 };
-
 export default DocsLayout;
