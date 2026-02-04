@@ -21,7 +21,7 @@ Markdown is a lightweight markup language that you can use to format text.
 
 - Bullet point 1
 - Bullet point 2
-  - Nested item
+- Nested item
 
 1. Numbered list
 2. Second item
@@ -98,7 +98,7 @@ export default function MarkdownPlayground() {
         {/* Header */}
         <div className="border-b border-gray-800">
           <div className="px-4 py-4 mx-auto max-w-7xl">
-            <div className="flex flex-col gap-4 justify-between items-start sm:flex-row sm:items-center">
+            <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
               <div>
                 <h1 className="text-2xl font-bold tracking-tight">
                   Markdown Playground
@@ -107,24 +107,24 @@ export default function MarkdownPlayground() {
                   Learn and practice markdown syntax in real-time
                 </p>
               </div>
-              <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+              <div className="flex flex-wrap w-full gap-2 sm:w-auto">
                 <Button
                   onClick={() => setShowPreview(!showPreview)}
-                  className="flex-1 px-4 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer sm:flex-none"
+                  className="flex-1 px-4 py-2 text-sm font-medium transition-colors rounded-lg cursor-pointer sm:flex-none"
                 >
                   {showPreview ? "Hide Preview" : "Show Preview"}
                 </Button>
                 <Button
                   variant="secondary"
                   onClick={handleReset}
-                  className="flex-1 px-4 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer sm:flex-none"
+                  className="flex-1 px-4 py-2 text-sm font-medium transition-colors rounded-lg cursor-pointer sm:flex-none"
                 >
                   <FiRotateCcw /> Reset
                 </Button>
                 <Button
                   variant="danger"
                   onClick={handleClear}
-                  className="flex-1 px-4 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer sm:flex-none"
+                  className="flex-1 px-4 py-2 text-sm font-medium transition-colors rounded-lg cursor-pointer sm:flex-none"
                 >
                   <FiTrash2 /> Clear
                 </Button>
@@ -139,7 +139,7 @@ export default function MarkdownPlayground() {
             className={`grid gap-4 ${showPreview ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1"}`}
           >
             <div className="flex flex-col gap-0">
-              <div className="flex justify-between items-center px-4 py-2 bg-gray-800 rounded-t-lg border-b border-gray-700">
+              <div className="flex items-center justify-between px-4 py-2 bg-gray-800 border-gray-700 rounded-t-lg">
                 <span className="text-sm font-medium text-gray-300">
                   Editor
                 </span>
@@ -166,13 +166,13 @@ export default function MarkdownPlayground() {
             {/* Preview */}
             {showPreview && (
               <section className="flex flex-col h-[120vh]">
-                <div className="px-4 py-2 bg-gray-800 rounded-t-lg border border-b border-gray-700">
+                <div className="px-4 py-2 border border-b border-gray-700 rounded-t-lg dark:bg-gray-800">
                   <span className="text-sm font-medium text-gray-300">
                     Preview
                   </span>
                 </div>
-                <div className="overflow-auto flex-1 p-6 bg-gray-800 rounded-b-lg border border-t-0 border-gray-700">
-                  <div className="max-w-none prose prose-invert prose-slate">
+                <div className="flex-1 p-6 overflow-auto border border-t-0 border-gray-700 rounded-b-lg">
+                  <div className="text-gray-500 max-w-none dark:text-gray-300">
                     <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       components={darkMarkdownComponents}
@@ -188,8 +188,8 @@ export default function MarkdownPlayground() {
 
         {/* Cheat Sheet */}
         <div className="px-4 pb-8 mx-auto max-w-7xl">
-          <details className="p-4 rounded-lg border border-gray-800 bg-gray-850">
-            <summary className="mb-4 text-lg font-semibold text-gray-300 transition-colors cursor-pointer dark:text-white hover:text-primary">
+          <details className="p-4 bg-gray-800 border border-gray-800 rounded-lg">
+            <summary className="mb-4 text-lg font-semibold text-black transition-colors cursor-pointer dark:text-white hover:text-primary">
               📚 Markdown Cheat Sheet
             </summary>
             <div className="grid grid-cols-1 gap-4 text-sm md:grid-cols-4">

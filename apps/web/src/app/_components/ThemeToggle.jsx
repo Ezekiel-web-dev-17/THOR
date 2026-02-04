@@ -1,38 +1,55 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Button from "@/components/Button";
 import { Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Ensure component is mounted on client side
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return (
+      <Button
+        variant="other"
+        size="text-xl"
+        className="flex items-center justify-center p-2 transition-colors rounded-full w-9 h-9 hover:bg-muted"
+      >
+        <span className="w-7.5 h-7.5" />
+      </Button>
+    );
+  }
 
   return (
     <Button
       onClick={toggleTheme}
       variant="other"
       size="text-xl"
-      className="flex justify-center items-center p-2 w-9 h-9 rounded-full transition-colors hover:bg-muted"
+      className="flex items-center justify-center p-2 transition-colors rounded-full w-9 h-9 hover:bg-muted"
       aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-      suppressHydrationWarning
     >
-      <span suppressHydrationWarning>
-        {theme === "light" ? (
-          <Moon
-            size={30}
-            className="transition-colors text-muted-foreground hover:text-foreground"
-          />
-        ) : (
-          <Sun
-            size={30}
-            className="transition-colors text-muted-foreground hover:text-foreground"
-          />
-        )}
-      </span>
+      {theme === "light" ? (
+        <Moon
+          size={20}
+          className="transition-colors text-muted-foreground hover:text-foreground"
+        />
+      ) : (
+        <Sun
+          size={20}
+          className="transition-colors text-muted-foreground hover:text-foreground"
+        />
+      )}
     </Button>
   );
 }

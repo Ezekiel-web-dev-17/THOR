@@ -2,7 +2,7 @@ import { Callout } from "./Callout";
 
 export const mdxComponents = {
   h1: (props) => (
-    <h1 className="mt-8 mb-4 text-4xl font-bold tracking-tight" {...props} />
+    <h1 className="mt-8 mb-4 text-4xl font-bold tracking-tight text-white" {...props} />
   ),
   h2: (props) => (
     <h2 className="mt-10 mb-3 text-2xl font-semibold" {...props} />
@@ -16,7 +16,7 @@ export const mdxComponents = {
   ),
   pre: (props) => (
     <pre
-      className="overflow-x-auto p-4 mb-6 rounded-lg bg-zinc-900 text-zinc-100"
+      className="p-4 mb-6 overflow-x-auto rounded-lg bg-zinc-900 text-zinc-100"
       {...props}
     />
   ),
