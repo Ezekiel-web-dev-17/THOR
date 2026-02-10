@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "install:all": "npm install",
     "db:setup": "npm run db:generate --workspace=@repo/database && npm run db:push --workspace=@repo/database",
