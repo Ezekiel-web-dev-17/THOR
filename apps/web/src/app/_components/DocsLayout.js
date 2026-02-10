@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Sidebar from "./Sidebar.jsx";
+import Sidebar from "./Sidebar.js";
 import Breadcrumb from "./Breadcrumb.jsx";
 import NavbarLayout from "./NavbarLayout.jsx";
 import Comment from "./Comment.jsx";
