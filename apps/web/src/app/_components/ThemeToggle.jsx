@@ -1,15 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "@/components/Button";
 import { Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 
 export default function ThemeToggle() {
-  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  // Prevent hydration mismatch by only rendering after mount
+  // Ensure component is mounted on client side
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -18,16 +18,15 @@ export default function ThemeToggle() {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
-  // Don't render icon until mounted to avoid hydration mismatch
+  // Prevent hydration mismatch by not rendering until mounted
   if (!mounted) {
     return (
       <Button
         variant="other"
         size="text-xl"
-        className="flex justify-center items-center p-2 w-9 h-9 rounded-full transition-colors hover:bg-muted"
-        aria-label="Toggle theme"
+        className="flex items-center justify-center p-2 transition-colors rounded-full w-9 h-9 hover:bg-muted"
       >
-        <div className="w-7.5 h-7.5" />
+        <span className="w-7.5 h-7.5" />
       </Button>
     );
   }
@@ -37,17 +36,17 @@ export default function ThemeToggle() {
       onClick={toggleTheme}
       variant="other"
       size="text-xl"
-      className="flex justify-center items-center p-2 w-9 h-9 rounded-full transition-colors hover:bg-muted"
+      className="flex items-center justify-center p-2 transition-colors rounded-full w-9 h-9 hover:bg-muted"
       aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
     >
       {theme === "light" ? (
         <Moon
-          size={30}
+          size={20}
           className="transition-colors text-muted-foreground hover:text-foreground"
         />
       ) : (
         <Sun
-          size={30}
+          size={20}
           className="transition-colors text-muted-foreground hover:text-foreground"
         />
       )}
