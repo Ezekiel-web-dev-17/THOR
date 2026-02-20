@@ -30,6 +30,7 @@ export default function RootLayout({ children }) {
             attribute="data-theme"
             defaultTheme="system"
             enableSystem
+            disableTransitionOnChange
           >
             {children}
           </ThemeProvider>
